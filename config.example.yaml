@@ -1,0 +1,27 @@
+# Gitty Configuration
+# Copy this file to ~/.config/gitty/config.yaml
+
+# Git settings
+git:
+  user_name: ""          # Your git user name (optional, uses git config if empty)
+  user_email: ""         # Your git email (optional, uses git config if empty)
+  editor: "vim"          # Default editor for commit messages
+
+# AI commit message settings
+ai:
+  provider: "openai"     # AI provider: openai or anthropic
+  model: "gpt-4o-mini"   # Model to use (gpt-4o-mini, gpt-4o, claude-3-5-sonnet-20241022)
+  api_key: ""            # API key (or set OPENAI_API_KEY / ANTHROPIC_API_KEY env var)
+  max_diff_size: 4000    # Maximum diff size to send to AI
+  temperature: 0.7       # AI temperature (0.0-1.0)
+
+# UI preferences
+ui:
+  theme: "charm"         # Theme: charm, dracula, catppuccin
+  show_icons: true       # Show icons in the UI
+  animation_ms: 100      # Animation speed in milliseconds
+
+# GitHub publishing settings
+github:
+  default_visibility: "public"  # Default visibility: public or private
+  normalize_author: false       # Normalize commit author on publish
