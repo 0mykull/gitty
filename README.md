@@ -71,11 +71,3 @@ ui:
 github:
   default_visibility: "public"
 ```
-
-## License
-
-MIT
-
----
-
-Built with ❤️ by [0mykull](https://github.com/0mykull)
