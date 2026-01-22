@@ -143,8 +143,21 @@ func (m *CommitModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, func() tea.Msg {
 				return ReturnToMenuMsg{Message: "", Type: ""}
 			}
+		case "ctrl+s":
+			if m.state == commitStateInput {
+				return m.submitForm()
+			}
 		case "enter":
-			return m.handleEnter()
+			if m.state == commitStateInput {
+				if m.textInput.Focused() {
+					m.textInput.Blur()
+					m.textArea.Focus()
+					return m, textarea.Blink
+				}
+				// Allow textarea to handle newlines
+			} else {
+				return m.handleEnter()
+			}
 		case "tab":
 			// Switch between title and body in manual mode
 			if m.state == commitStateInput && !m.useAI {
@@ -238,28 +251,29 @@ func (m *CommitModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
+func (m *CommitModel) submitForm() (tea.Model, tea.Cmd) {
+	title := strings.TrimSpace(m.textInput.Value())
+	if title == "" {
+		return m, nil
+	}
+
+	body := strings.TrimSpace(m.textArea.Value())
+	if body != "" {
+		m.commitMsg = title + "\n\n" + body
+	} else {
+		m.commitMsg = title
+	}
+	m.renderedMsg = m.renderMessage(m.commitMsg)
+	m.state = commitStateConfirm
+	return m, nil
+}
+
 func (m *CommitModel) handleEnter() (tea.Model, tea.Cmd) {
 	switch m.state {
 	case commitStateNoChanges:
 		return m, func() tea.Msg {
 			return ReturnToMenuMsg{Message: "No staged changes to commit", Type: "info"}
 		}
-
-	case commitStateInput:
-		title := strings.TrimSpace(m.textInput.Value())
-		if title == "" {
-			return m, nil
-		}
-
-		body := strings.TrimSpace(m.textArea.Value())
-		if body != "" {
-			m.commitMsg = title + "\n\n" + body
-		} else {
-			m.commitMsg = title
-		}
-		m.renderedMsg = m.renderMessage(m.commitMsg)
-		m.state = commitStateConfirm
-		return m, nil
 
 	case commitStateError:
 		return m, func() tea.Msg {
@@ -323,7 +337,7 @@ func (m *CommitModel) View() string {
 			b.WriteString(lipgloss.NewStyle().Foreground(styles.Purple).Render("Body (optional):") + "\n")
 			b.WriteString(m.textArea.View())
 			b.WriteString("\n\n")
-			b.WriteString(styles.HelpStyle.Render("tab: switch fields • enter: commit • esc: cancel"))
+			b.WriteString(styles.HelpStyle.Render("tab: switch fields • enter: next line • ctrl+s: commit • esc: cancel"))
 		}
 
 	case commitStateGenerating:
