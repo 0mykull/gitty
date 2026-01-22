@@ -376,9 +376,12 @@ func (m Model) View() string {
 	// Menu list
 	b.WriteString(m.list.View())
 
-	// Message
-	if m.message != "" {
-		b.WriteString("\n")
+	// Status Area (Fixed height to prevent layout jumps)
+	b.WriteString("\n\n")
+
+	if m.loading {
+		b.WriteString(fmt.Sprintf("%s Working...", m.spinner.View()))
+	} else if m.message != "" {
 		switch m.msgType {
 		case "success":
 			b.WriteString(styles.RenderSuccess(m.message))
@@ -387,13 +390,8 @@ func (m Model) View() string {
 		default:
 			b.WriteString(styles.RenderInfo(m.message))
 		}
-	}
-
-	// Loading indicator
-	if m.loading {
-		b.WriteString("\n")
-		b.WriteString(m.spinner.View())
-		b.WriteString(" Working...")
+	} else {
+		b.WriteString(" ") // Placeholder line
 	}
 
 	// Help
