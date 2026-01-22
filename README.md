@@ -13,6 +13,14 @@
 
 ## Installation
 
+### Via Go Install (Recommended)
+
+```bash
+go install github.com/0mykull/gitty/cmd/gitty@latest
+```
+
+This installs the binary to `$GOBIN` (default: `~/go/bin`). Ensure this directory is in your `$PATH`.
+
 ### From Source
 
 ```bash
@@ -23,13 +31,13 @@ make install
 
 This will build and install the binary to `~/.local/bin/gitty`. Ensure this directory is in your `$PATH`.
 
+### Requirements
+
+- **git** (required) - Must be installed and available in `$PATH`
+- **gh** (optional) - For GitHub publishing features
+- **lazygit** (optional) - For launching lazygit integration
+
 ## Usage
-
-Run `gitty` in any git repository:
-
-```bash
-gitty
-```
 
 ### Key Bindings
 
@@ -40,12 +48,24 @@ gitty
 | `i` | **AI Commit** | Generate commit message with AI |
 | `p` | **Push** | `git push` |
 | `l` | **Pull** | `git pull` |
-| `r` | **Reset** | Hard reset changes (requires confirmation) |
+| `r` | **Rollback** | Hard reset to undo last commit (`git reset --hard HEAD^`) |
+| `R` | **Reset** | Hard reset changes (requires confirmation) |
 | `u` | **Publish** | Create & push repo to GitHub |
 | `o` | **Open Repo** | Open repository in browser |
 | `g` | **Lazygit** | Launch lazygit (if installed) |
 | `b` | **Branches** | View branches |
 | `q` | **Quit** | Exit gitty |
+
+#### Commit Editor Key Bindings
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `enter` | **Submit** | Submit commit message |
+| `alt+enter` | **New Line** | Insert new line in commit body |
+| `tab` | **Switch Field** | Move between title and body fields |
+| `y` | **Confirm** | Confirm commit |
+| `n` | **Cancel** | Cancel commit |
+| `e` | **Edit** | Edit commit message |
 
 ## Configuration
 

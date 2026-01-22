@@ -141,22 +141,22 @@ func (m *CommitModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "esc":
 			return m, func() tea.Msg {
-				return ReturnToMenuMsg{Message: "", Type: ""}
+				return ReturnToMenuMsg{Message: "Cancelled", Type: "info"}
 			}
-		case "ctrl+s":
+		case "enter":
+			// Submit on Enter
 			if m.state == commitStateInput {
 				return m.submitForm()
 			}
-		case "enter":
+			return m.handleEnter()
+
+		case "alt+enter":
+			// Newline on Alt+Enter
 			if m.state == commitStateInput {
-				if m.textInput.Focused() {
-					m.textInput.Blur()
-					m.textArea.Focus()
-					return m, textarea.Blink
+				if m.textArea.Focused() {
+					m.textArea.InsertString("\n")
+					return m, nil
 				}
-				// Allow textarea to handle newlines
-			} else {
-				return m.handleEnter()
 			}
 		case "tab":
 			// Switch between title and body in manual mode
@@ -337,7 +337,7 @@ func (m *CommitModel) View() string {
 			b.WriteString(lipgloss.NewStyle().Foreground(styles.Purple).Render("Body (optional):") + "\n")
 			b.WriteString(m.textArea.View())
 			b.WriteString("\n\n")
-			b.WriteString(styles.HelpStyle.Render("tab: switch fields • enter: next line • ctrl+s: commit • esc: cancel"))
+			b.WriteString(styles.HelpStyle.Render("tab: switch fields • enter: commit • alt+enter: new line • esc: cancel"))
 		}
 
 	case commitStateGenerating:

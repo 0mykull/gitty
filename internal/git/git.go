@@ -333,3 +333,23 @@ func OpenBrowser(url string) error {
 
 	return cmd.Start()
 }
+
+// CheckDeps checks for required and optional dependencies
+func CheckDeps() []string {
+	var missing []string
+
+	// Required
+	if _, err := exec.LookPath("git"); err != nil {
+		missing = append(missing, "git (required)")
+	}
+
+	// Optional
+	if _, err := exec.LookPath("gh"); err != nil {
+		missing = append(missing, "gh (optional, for publish)")
+	}
+	if _, err := exec.LookPath("lazygit"); err != nil {
+		missing = append(missing, "lazygit (optional)")
+	}
+
+	return missing
+}
