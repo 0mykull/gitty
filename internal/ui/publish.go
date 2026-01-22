@@ -11,9 +11,9 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/huh"
 
-	"github.com/1mykull/gitty/internal/config"
-	"github.com/1mykull/gitty/internal/git"
-	"github.com/1mykull/gitty/internal/styles"
+	"github.com/0mykull/gitty/internal/config"
+	"github.com/0mykull/gitty/internal/git"
+	"github.com/0mykull/gitty/internal/styles"
 )
 
 type publishState int

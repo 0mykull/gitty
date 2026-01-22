@@ -12,9 +12,9 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/1mykull/gitty/internal/config"
-	"github.com/1mykull/gitty/internal/git"
-	"github.com/1mykull/gitty/internal/styles"
+	"github.com/0mykull/gitty/internal/config"
+	"github.com/0mykull/gitty/internal/git"
+	"github.com/0mykull/gitty/internal/styles"
 )
 
 // Action represents what a menu item does
@@ -407,7 +407,7 @@ func (m Model) renderHeader() string {
 	title := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(styles.Pink).
-		Render(" gitty")
+		Render("gitty")
 
 	// Separator
 	separator := lipgloss.NewStyle().

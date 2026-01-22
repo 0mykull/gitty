@@ -1,4 +1,4 @@
-module github.com/1mykull/gitty
+module github.com/0mykull/gitty
 
 go 1.23.0
 

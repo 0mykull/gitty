@@ -11,10 +11,10 @@ import (
 	"github.com/charmbracelet/glamour"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/1mykull/gitty/internal/ai"
-	"github.com/1mykull/gitty/internal/config"
-	"github.com/1mykull/gitty/internal/git"
-	"github.com/1mykull/gitty/internal/styles"
+	"github.com/0mykull/gitty/internal/ai"
+	"github.com/0mykull/gitty/internal/config"
+	"github.com/0mykull/gitty/internal/git"
+	"github.com/0mykull/gitty/internal/styles"
 )
 
 type commitState int

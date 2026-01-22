@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/1mykull/gitty/internal/config"
+	"github.com/0mykull/gitty/internal/config"
 )
 
 const (
