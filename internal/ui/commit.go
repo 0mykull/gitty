@@ -85,7 +85,7 @@ func (m *CommitModel) Init() tea.Cmd {
 
 func (m *CommitModel) initRendererCmd() tea.Msg {
 	r, err := glamour.NewTermRenderer(
-		glamour.WithAutoStyle(),
+		glamour.WithStandardStyle("dark"),
 		glamour.WithWordWrap(80),
 	)
 	if err != nil {
