@@ -2,16 +2,14 @@
 
 **gitty** is a beautiful, modern, and fast Git CLI tool built with Go and the [Charm](https://charm.sh) ecosystem (BubbleTea, Lip Gloss). It provides a simplified interface for common git operations, featuring AI-powered commit messages and a stunning terminal UI.
 
-![gitty demo](https://placehold.co/800x400?text=Gitty+Screenshot+Placeholder)
-
 ## Features
 
-- 🎨 **Beautiful UI**: Styled with Lip Gloss for a modern terminal aesthetic (Pink/Purple/Blue theme).
-- ⚡ **Fast & Responsive**: Optimized for speed, with instant status checks and background processing.
-- 🤖 **AI Commit Messages**: Generate context-aware commit messages using OpenAI or Anthropic (Claude).
-- 🚀 **Quick Actions**: Stage, commit, push, pull, and reset with single keystrokes.
-- 📦 **GitHub Publishing**: Create and push new repositories to GitHub directly from the CLI.
-- 🔧 **Configurable**: YAML configuration for AI settings, user details, and UI preferences.
+- **Beautiful UI**: Styled with Lip Gloss for a modern terminal aesthetic (Pink/Purple/Blue theme).
+- **Fast & Responsive**: Optimized for speed, with instant status checks and background processing.
+- **AI Commit Messages**: Generate context-aware commit messages using OpenAI or Anthropic (Claude).
+- **Quick Actions**: Stage, commit, push, pull, and reset with single keystrokes.
+- **GitHub Publishing**: Create and push new repositories to GitHub directly from the CLI.
+- **Configurable**: YAML configuration for AI settings, user details, and UI preferences.
 
 ## Installation
 
