@@ -62,26 +62,40 @@ func NewCommitModel(cfg *config.Config, useAI bool) *CommitModel {
 	ta.SetWidth(60)
 	ta.SetHeight(5)
 
-	// Lazy load glamour only if needed for AI or confirm view
-	// We initialize with nil and create it when needed
 	return &CommitModel{
 		cfg:       cfg,
 		useAI:     useAI,
 		spinner:   s,
 		textInput: ti,
 		textArea:  ta,
-		renderer:  nil, // Lazy init
+		renderer:  nil, // Will be initialized async
 		ready:     false,
 	}
 }
 
 func (m *CommitModel) Init() tea.Cmd {
-	// Start checking status immediately
+	// Start checking status and init renderer in parallel
 	return tea.Batch(
 		m.spinner.Tick,
 		textinput.Blink,
 		m.checkStatusAsync,
+		m.initRendererCmd,
 	)
+}
+
+func (m *CommitModel) initRendererCmd() tea.Msg {
+	r, err := glamour.NewTermRenderer(
+		glamour.WithAutoStyle(),
+		glamour.WithWordWrap(80),
+	)
+	if err != nil {
+		return rendererMsg{nil}
+	}
+	return rendererMsg{r}
+}
+
+type rendererMsg struct {
+	renderer *glamour.TermRenderer
 }
 
 // checkStatusAsync checks git status without blocking
@@ -184,6 +198,10 @@ func (m *CommitModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.state = commitStateInput
 		return m, textinput.Blink
 
+	case rendererMsg:
+		m.renderer = msg.renderer
+		return m, nil
+
 	case commitNoChangesMsg:
 		m.state = commitStateNoChanges
 		return m, nil
@@ -269,14 +287,7 @@ func (m *CommitModel) doCommit() tea.Msg {
 
 func (m *CommitModel) renderMessage(msg string) string {
 	if m.renderer == nil {
-		var err error
-		m.renderer, err = glamour.NewTermRenderer(
-			glamour.WithAutoStyle(),
-			glamour.WithWordWrap(80),
-		)
-		if err != nil {
-			return msg
-		}
+		return msg // Fallback to plain text if renderer isn't ready yet
 	}
 
 	out, err := m.renderer.Render(msg)
