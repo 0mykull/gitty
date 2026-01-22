@@ -136,7 +136,10 @@ func (m *PublishModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return ReturnToMenuMsg{Message: "", Type: ""}
 			}
 		case "enter":
-			return m.handleEnter()
+			// Only handle Enter manually if we are NOT in the form
+			if m.state != publishStateForm {
+				return m.handleEnter()
+			}
 		}
 
 	case spinner.TickMsg:

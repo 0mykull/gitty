@@ -70,6 +70,17 @@ func (m *ResetModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		var cmd tea.Cmd
 		m.spinner, cmd = m.spinner.Update(msg)
 		return m, cmd
+
+	case resetDoneMsg:
+		m.state = resetStateDone
+		return m, func() tea.Msg {
+			return ReturnToMenuMsg{Message: "Reset successful", Type: "success"}
+		}
+
+	case resetErrorMsg:
+		m.state = resetStateError
+		m.err = msg.err
+		return m, nil
 	}
 
 	// Update form
