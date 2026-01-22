@@ -2,6 +2,8 @@
 
 **gitty** is a beautiful, modern, and fast Git CLI tool built with Go and the [Charm](https://charm.sh) ecosystem (BubbleTea, Lip Gloss). It provides a simplified interface for common git operations, featuring AI-powered commit messages and a stunning terminal UI.
 
+![Gitty Demo](./demo.gif)
+
 ## Features
 
 - **Beautiful UI**: Styled with Lip Gloss for a modern terminal aesthetic (Pink/Purple/Blue theme).
