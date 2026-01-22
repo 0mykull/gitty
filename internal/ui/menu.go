@@ -132,7 +132,7 @@ func NewModel(cfg *config.Config) Model {
 
 	// Create list with custom delegate
 	delegate := itemDelegate{}
-	l := list.New(listItems, delegate, 50, len(items)+2)
+	l := list.New(listItems, delegate, 20, len(items))
 	l.SetShowTitle(false)
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
