@@ -56,6 +56,7 @@ This will build and install the binary to `~/.local/bin/gitty`. Ensure this dire
 | `l` | **Pull** | `git pull` |
 | `r` | **Reset** | Hard reset changes (requires confirmation) |
 | `R` | **Rollback** | Undo last commit (requires confirmation) |
+| `e` | **Release** | Create and push git tag |
 | `P` | **Publish** | Create & push repo to GitHub |
 | `o` | **Open Repo** | Open repository in browser |
 | `g` | **Lazygit** | Launch lazygit (if installed) |

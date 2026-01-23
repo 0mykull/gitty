@@ -29,6 +29,7 @@ const (
 	ActionPull
 	ActionReset
 	ActionRollback
+	ActionRelease
 	ActionPublish
 	ActionOpen
 	ActionLazygit
@@ -118,6 +119,7 @@ func NewModel(cfg *config.Config) Model {
 		{icon: styles.Icons.Pull, title: "Pull", desc: "Pull from remote", shortcut: "l", action: ActionPull},
 		{icon: styles.Icons.Reset, title: "Reset", desc: "Reset changes (hard)", shortcut: "r", action: ActionReset},
 		{icon: styles.Icons.Reset, title: "Rollback", desc: "Undo last commit (reset HEAD^)", shortcut: "R", action: ActionRollback},
+		{icon: styles.Icons.Star, title: "Release", desc: "Create & push tag", shortcut: "e", action: ActionRelease},
 		{icon: styles.Icons.Publish, title: "Publish", desc: "Publish to GitHub", shortcut: "P", action: ActionPublish},
 		{icon: styles.Icons.Open, title: "Open Repo", desc: "Open repo in browser", shortcut: "o", action: ActionOpen},
 		{icon: styles.Icons.Lazygit, title: "Lazygit", desc: "Open lazygit", shortcut: "g", action: ActionLazygit},
@@ -307,6 +309,11 @@ func (m Model) executeAction(action Action) (tea.Model, tea.Cmd) {
 	case ActionRollback:
 		m.inSubView = true
 		m.subModel = NewRollbackModel()
+		return m, m.subModel.Init()
+
+	case ActionRelease:
+		m.inSubView = true
+		m.subModel = NewReleaseModel()
 		return m, m.subModel.Init()
 
 	case ActionCommit:

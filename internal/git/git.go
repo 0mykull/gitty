@@ -288,6 +288,21 @@ func Tag(name string) error {
 	return cmd.Run()
 }
 
+// TagAnnotated creates a new annotated tag with a message
+func TagAnnotated(name, message string) error {
+	var cmd *exec.Cmd
+	if message == "" {
+		cmd = exec.Command("git", "tag", name)
+	} else {
+		cmd = exec.Command("git", "tag", "-a", name, "-m", message)
+	}
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("%s: %w", string(output), err)
+	}
+	return nil
+}
+
 // PushTags pushes all tags to remote
 func PushTags() error {
 	cmd := exec.Command("git", "push", "--tags")
