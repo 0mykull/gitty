@@ -118,7 +118,7 @@ func NewModel(cfg *config.Config) Model {
 		{icon: styles.Icons.Pull, title: "Pull", desc: "Pull from remote", shortcut: "l", action: ActionPull},
 		{icon: styles.Icons.Reset, title: "Reset", desc: "Reset changes (hard)", shortcut: "r", action: ActionReset},
 		{icon: styles.Icons.Reset, title: "Rollback", desc: "Undo last commit (reset HEAD^)", shortcut: "R", action: ActionRollback},
-		{icon: styles.Icons.Publish, title: "Publish", desc: "Publish to GitHub", shortcut: "u", action: ActionPublish},
+		{icon: styles.Icons.Publish, title: "Publish", desc: "Publish to GitHub", shortcut: "P", action: ActionPublish},
 		{icon: styles.Icons.Open, title: "Open Repo", desc: "Open repo in browser", shortcut: "o", action: ActionOpen},
 		{icon: styles.Icons.Lazygit, title: "Lazygit", desc: "Open lazygit", shortcut: "g", action: ActionLazygit},
 		{icon: styles.Icons.Branch, title: "Branches", desc: "View branches", shortcut: "b", action: ActionBranches},
@@ -305,13 +305,9 @@ func (m Model) executeAction(action Action) (tea.Model, tea.Cmd) {
 		return m, m.subModel.Init()
 
 	case ActionRollback:
-		m.loading = true
-		return m, func() tea.Msg {
-			if err := git.Rollback(); err != nil {
-				return actionCompleteMsg{false, fmt.Sprintf("Rollback failed: %v", err)}
-			}
-			return actionCompleteMsg{true, "Rolled back to previous commit"}
-		}
+		m.inSubView = true
+		m.subModel = NewRollbackModel()
+		return m, m.subModel.Init()
 
 	case ActionCommit:
 		m.inSubView = true

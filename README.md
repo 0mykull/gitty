@@ -23,6 +23,10 @@ go install github.com/0mykull/gitty/cmd/gitty@latest
 
 This installs the binary to `$GOBIN` (default: `~/go/bin`). Ensure this directory is in your `$PATH`.
 
+### Manual Install
+
+Download the latest binary for your platform from the [Releases](https://github.com/0mykull/gitty/releases) page and place it in your `$PATH`.
+
 ### From Source
 
 ```bash
@@ -50,9 +54,9 @@ This will build and install the binary to `~/.local/bin/gitty`. Ensure this dire
 | `i` | **AI Commit** | Generate commit message with AI |
 | `p` | **Push** | `git push` |
 | `l` | **Pull** | `git pull` |
-| `r` | **Rollback** | Hard reset to undo last commit (`git reset --hard HEAD^`) |
-| `R` | **Reset** | Hard reset changes (requires confirmation) |
-| `u` | **Publish** | Create & push repo to GitHub |
+| `r` | **Reset** | Hard reset changes (requires confirmation) |
+| `R` | **Rollback** | Undo last commit (requires confirmation) |
+| `P` | **Publish** | Create & push repo to GitHub |
 | `o` | **Open Repo** | Open repository in browser |
 | `g` | **Lazygit** | Launch lazygit (if installed) |
 | `b` | **Branches** | View branches |
