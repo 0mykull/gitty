@@ -30,3 +30,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Go Proxy
+        run: curl "https://proxy.golang.org/github.com/0mykull/gitty/@v/${{ github.ref_name }}.info"
