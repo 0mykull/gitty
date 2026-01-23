@@ -4,7 +4,7 @@ BINARY=gitty
 INSTALL_PATH=$(HOME)/.local/bin
 
 build:
-	go build -o $(BINARY) ./cmd/gitty/
+	go build -o $(BINARY) .
 
 install: build
 	mkdir -p $(INSTALL_PATH)

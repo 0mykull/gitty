@@ -18,7 +18,7 @@
 ### Via Go Install (Recommended)
 
 ```bash
-go install github.com/0mykull/gitty/cmd/gitty@latest
+go install github.com/0mykull/gitty@latest
 ```
 
 This installs the binary to `$GOBIN` (default: `~/go/bin`). Ensure this directory is in your `$PATH`.
